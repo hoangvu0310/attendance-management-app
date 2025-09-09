@@ -16,8 +16,16 @@ import AppThemeProvider from '@src/presentation/context/AppThemeContext'
 SplashScreen.preventAutoHideAsync()
 
 export default function RootLayout() {
-	// TODO: Add fonts
-	const [fontsLoaded, error] = useFonts({})
+	const [fontsLoaded, error] = useFonts({
+		'OpenSans-Regular': require('@assets/fonts/OpenSans-Regular.ttf'),
+		'OpenSans-Medium': require('@assets/fonts/OpenSans-Medium.ttf'),
+		'OpenSans-SemiBold': require('@assets/fonts/OpenSans-SemiBold.ttf'),
+		'OpenSans-Bold': require('@assets/fonts/OpenSans-Bold.ttf'),
+		'OpenSans-Italic': require('@assets/fonts/OpenSans-Italic.ttf'),
+		'OpenSans-MediumItalic': require('@assets/fonts/OpenSans-MediumItalic.ttf'),
+		'OpenSans-SemiBoldItalic': require('@assets/fonts/OpenSans-SemiBoldItalic.ttf'),
+		'OpenSans-BoldItalic': require('@assets/fonts/OpenSans-BoldItalic.ttf'),
+	})
 
 	const loadLanguage = async () => {
 		const language = await getLanguage()
@@ -41,6 +49,7 @@ export default function RootLayout() {
 						<AppThemeProvider>
 							<Stack>
 								<Stack.Screen name={'index'} options={{ headerShown: false }} />
+								<Stack.Screen name={'(main)'} options={{ headerShown: false }} />
 							</Stack>
 						</AppThemeProvider>
 					</Provider>
