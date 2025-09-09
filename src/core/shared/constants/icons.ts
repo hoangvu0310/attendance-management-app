@@ -7,4 +7,8 @@ export default {
 	NotificationFill: require('@assets/icons/ic-notification-fill.png'),
 	User: require('@assets/icons/ic-user.png'),
 	UserFill: require('@assets/icons/ic-user-fill.png'),
+	Timer: require('@assets/icons/ic-timer.png'),
+	Document: require('@assets/icons/ic-document.png'),
+	DocumentCheck: require('@assets/icons/ic-document-check.png'),
+	RightArrow: require('@assets/icons/ic-right-arrow.png'),
 }
