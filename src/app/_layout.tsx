@@ -50,6 +50,7 @@ export default function RootLayout() {
 							<Stack>
 								<Stack.Screen name={'index'} options={{ headerShown: false }} />
 								<Stack.Screen name={'(main)'} options={{ headerShown: false }} />
+								<Stack.Screen name={'(tasks)'} options={{ headerShown: false }} />
 							</Stack>
 						</AppThemeProvider>
 					</Provider>

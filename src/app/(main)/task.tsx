@@ -30,7 +30,7 @@ export default function Task() {
 					<TaskMenuItem
 						title={'Đơn từ đã duyệt'}
 						icon={ICONS.DocumentCheck}
-						onPressItem={() => {}}
+						onPressItem={() => router.push('/(tasks)/approved-request')}
 					/>
 				</View>
 			</View>

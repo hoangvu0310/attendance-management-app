@@ -11,4 +11,10 @@ export default {
 	Document: require('@assets/icons/ic-document.png'),
 	DocumentCheck: require('@assets/icons/ic-document-check.png'),
 	RightArrow: require('@assets/icons/ic-right-arrow.png'),
+	Back: require('@assets/icons/ic-back.png'),
+	Search: require('@assets/icons/ic-search.png'),
+	First: require('@assets/icons/ic-first.png'),
+	Previous: require('@assets/icons/ic-previous.png'),
+	Next: require('@assets/icons/ic-next.png'),
+	Last: require('@assets/icons/ic-last.png'),
 }
