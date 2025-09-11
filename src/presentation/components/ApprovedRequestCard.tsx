@@ -2,11 +2,7 @@ import { Text, View } from 'react-native'
 import { COLORS } from '@src/core/shared/constants'
 import Spacer from '@src/presentation/components/Spacer'
 import Divider from '@src/presentation/components/Divider'
-
-export enum IssueTag {
-	LATE = 'Đến muộn',
-	DISMISS = 'Xin nghỉ',
-}
+import { IssueTag } from '@src/core/shared/constants/enum'
 
 type ApprovedRequestCardProps = {
 	name: string

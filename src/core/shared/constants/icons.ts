@@ -17,4 +17,9 @@ export default {
 	Previous: require('@assets/icons/ic-previous.png'),
 	Next: require('@assets/icons/ic-next.png'),
 	Last: require('@assets/icons/ic-last.png'),
+	Calendar: require('@assets/icons/ic-calendar.png'),
+	Clock: require('@assets/icons/ic-clock.png'),
+	Location: require('@assets/icons/ic-location.png'),
+	Suitcase: require('@assets/icons/ic-suitcase.png'),
+	Book: require('@assets/icons/ic-book.png'),
 }

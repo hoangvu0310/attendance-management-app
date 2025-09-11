@@ -1,8 +1,8 @@
 import { View } from 'react-native'
 
 type SpacerProps = {
-	width?: number
-	height?: number
+	width?: number | `${number}%`
+	height?: number | `${number}%`
 }
 
 export default function Spacer({ width, height }: SpacerProps) {

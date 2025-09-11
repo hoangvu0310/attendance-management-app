@@ -4,9 +4,10 @@ import { FlatList, Text, View } from 'react-native'
 import Spacer from '@src/presentation/components/Spacer'
 import IconButton from '@src/presentation/components/buttons/IconButton'
 import { ICONS } from '@src/core/shared/constants'
-import ApprovedRequestCard, { IssueTag } from '@src/presentation/components/ApprovedRequestCard'
+import ApprovedRequestCard from '@src/presentation/components/ApprovedRequestCard'
 import PagingTab from '@src/presentation/components/PagingTab'
 import { useState } from 'react'
+import { IssueTag } from '@src/core/shared/constants/enum'
 
 export default function ApprovedRequest() {
 	const [currentPage, setCurrentPage] = useState(1)
