@@ -22,4 +22,6 @@ export default {
 	Location: require('@assets/icons/ic-location.png'),
 	Suitcase: require('@assets/icons/ic-suitcase.png'),
 	Book: require('@assets/icons/ic-book.png'),
+	Up: require('@assets/icons/ic-up.png'),
+	Down: require('@assets/icons/ic-down.png'),
 }

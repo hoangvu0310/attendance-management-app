@@ -1,13 +1,4 @@
-import {
-	FlatList,
-	Image,
-	Modal,
-	ScrollView,
-	Text,
-	TouchableOpacity,
-	TouchableWithoutFeedback,
-	View,
-} from 'react-native'
+import { FlatList, Image, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { COLORS, ICONS, IMAGES } from '@src/core/shared/constants'
 import Spacer from '@src/presentation/components/Spacer'
@@ -17,7 +8,8 @@ import MainTabContentView from '@src/presentation/components/MainTabContentView'
 import TrackingCard from '@src/presentation/components/home/TrackingCard'
 import { IssueTag } from '@src/core/shared/constants/enum'
 import QuickRequestCard from '@src/presentation/components/home/QuickRequestCard'
-import AppModal from '@src/presentation/components/modal/AppModal'
+import MonthYearPickerModal from '@src/presentation/components/modal/MonthYearPickerModal'
+import { toShortMonthString } from '@src/core/shared/utils/date'
 
 export default function Home() {
 	const inset = useSafeAreaInsets()
@@ -52,7 +44,7 @@ export default function Home() {
 	]
 	const approvalNeedList = []
 
-	const [chosenMonth, setChosenMonth] = useState<string>('09/2025')
+	const [chosenMonth, setChosenMonth] = useState(new Date())
 	const [isTimePickerVisible, setIsTimePickerVisible] = useState<boolean>(false)
 
 	const onPressMonth = () => setIsTimePickerVisible(true)
@@ -85,7 +77,9 @@ export default function Home() {
 							onPress={onPressMonth}
 							className={'flex-row items-center justify-center gap-[10px]'}
 						>
-							<Text className={'font-opensans-regular text-white'}>{chosenMonth}</Text>
+							<Text className={'font-opensans-regular text-white'}>
+								{toShortMonthString(chosenMonth)}
+							</Text>
 							<Image
 								source={ICONS.Calendar}
 								className={'h-[24px] w-[24px]'}
@@ -140,9 +134,13 @@ export default function Home() {
 				</MainTabContentView>
 			</LinearBackground>
 
-			<AppModal isVisible={isTimePickerVisible} closeModal={() => setIsTimePickerVisible(false)}>
-				<View className={'h-1/2 w-1/2 rounded-xl bg-white'}></View>
-			</AppModal>
+			<MonthYearPickerModal
+				isVisible={isTimePickerVisible}
+				closeModal={() => setIsTimePickerVisible(false)}
+				currentMonth={chosenMonth.getMonth() + 1}
+				currentYear={chosenMonth.getFullYear()}
+				onSelectMonth={(month, year) => console.log(month, year)} // TODO: implement change month
+			/>
 		</>
 	)
 }
