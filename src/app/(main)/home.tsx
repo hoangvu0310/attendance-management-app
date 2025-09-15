@@ -1,4 +1,4 @@
-import { FlatList, Image, ScrollView, Text, TouchableOpacity, View } from 'react-native'
+import { FlatList, Image, Text, TouchableOpacity, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { COLORS, ICONS, IMAGES } from '@src/core/shared/constants'
 import Spacer from '@src/presentation/components/Spacer'
@@ -90,18 +90,18 @@ export default function Home() {
 				</View>
 
 				<MainTabContentView>
-					<ScrollView showsVerticalScrollIndicator={false} className={'w-full flex-1'}>
-						<View className={'w-full gap-[15px] p-[1px]'}>
-							<View className={'flex-row gap-[15px]'}>
-								<TrackingCard title={IssueTag.LATE} value={1} onPress={() => {}} />
-								<TrackingCard title={IssueTag.LEAVE_EARLY} value={1} onPress={() => {}} />
-							</View>
-							<View className={'flex-row gap-[15px]'}>
-								<TrackingCard title={IssueTag.DISMISS} value={1} onPress={() => {}} />
-								<TrackingCard title={IssueTag.NOT_CHECKIN} value={1} onPress={() => {}} />
-							</View>
+					<View className={'w-full gap-[15px] p-[1px]'}>
+						<View className={'flex-row gap-[15px]'}>
+							<TrackingCard title={IssueTag.LATE} value={1} onPress={() => {}} />
+							<TrackingCard title={IssueTag.LEAVE_EARLY} value={1} onPress={() => {}} />
 						</View>
-						<Spacer height={20} />
+						<View className={'flex-row gap-[15px]'}>
+							<TrackingCard title={IssueTag.DISMISS} value={1} onPress={() => {}} />
+							<TrackingCard title={IssueTag.NOT_CHECKIN} value={1} onPress={() => {}} />
+						</View>
+					</View>
+
+					<View>
 						<Text className={'py-[10px] font-opensans-medium text-[18px]'}>{'Xin phép nhanh'}</Text>
 						<FlatList
 							data={quickRequestList}
@@ -116,8 +116,9 @@ export default function Home() {
 								/>
 							)}
 						/>
+					</View>
 
-						<Spacer height={20} />
+					<View>
 						<Text className={'py-[10px] font-opensans-medium text-[18px]'}>
 							{'Đơn từ cần duyệt (' + approvalNeedList.length + ')'}
 						</Text>
@@ -129,8 +130,9 @@ export default function Home() {
 							/>
 							<Text className={'font-opensans-regular text-gray-600'}>{'Không có dữ liệu'}</Text>
 						</View>
-						<Spacer height={150} />
-					</ScrollView>
+					</View>
+
+					<Spacer height={150} />
 				</MainTabContentView>
 			</LinearBackground>
 

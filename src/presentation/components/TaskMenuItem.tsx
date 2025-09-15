@@ -11,7 +11,7 @@ export default function TaskMenuItem({ title, icon, onPressItem }: TaskMenuItemP
 	return (
 		<TouchableOpacity activeOpacity={0.96} onPress={onPressItem}>
 			<View
-				className={'flex-row items-center justify-between rounded-[15px] bg-white p-[15px]'}
+				className={'w-full flex-row items-center justify-between rounded-[15px] bg-white p-[15px]'}
 				style={{
 					shadowColor: COLORS.gray['100'],
 					shadowOffset: {
