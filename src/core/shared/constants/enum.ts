@@ -9,5 +9,6 @@ export enum IssueTag {
 	MEETING = 'Đi họp',
 	CUSTOMER = 'Đi gặp khách hàng',
 	NOT_CHECKIN = 'Không chấm công',
+	FULFILLED = 'Đủ công',
 	OTHER = 'Vắng mặt khác',
 }

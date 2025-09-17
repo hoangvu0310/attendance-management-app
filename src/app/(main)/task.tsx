@@ -19,7 +19,11 @@ export default function Task() {
 			</View>
 			<Spacer height={10} />
 			<MainTabContentView>
-				<TaskMenuItem title={'Lịch sử chấm công'} icon={ICONS.Timer} onPressItem={() => {}} />
+				<TaskMenuItem
+					title={'Lịch sử chấm công'}
+					icon={ICONS.Timer}
+					onPressItem={() => router.push('/(tasks)/checkin-history')}
+				/>
 				<TaskMenuItem title={'Đơn từ của bạn'} icon={ICONS.Document} onPressItem={() => {}} />
 				<TaskMenuItem
 					title={'Đơn từ chờ phê duyệt'}

@@ -4,6 +4,7 @@ export default function TasksLayout() {
 	return (
 		<Stack>
 			<Stack.Screen name={'approved-request'} options={{ headerShown: false }} />
+			<Stack.Screen name={'checkin-history'} options={{ headerShown: false }} />
 		</Stack>
 	)
 }

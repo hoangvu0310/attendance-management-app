@@ -8,6 +8,7 @@ import ApprovedRequestCard from '@src/presentation/components/ApprovedRequestCar
 import PagingTab from '@src/presentation/components/PagingTab'
 import { useState } from 'react'
 import { IssueTag } from '@src/core/shared/constants/enum'
+import SafeAreaScreen from '@src/presentation/components/SafeAreaScreen'
 
 export default function ApprovedRequest() {
 	const [currentPage, setCurrentPage] = useState(1)
@@ -29,42 +30,37 @@ export default function ApprovedRequest() {
 		totalItem: 100,
 	}
 
+	const onPressSearch = () => {}
+
 	return (
-		<SafeAreaView className={'flex-1 bg-white'}>
-			<View className={'flex-1 px-[20px]'}>
-				<Spacer height={30} />
-				<View className={'w-full flex-row items-center justify-between'}>
-					<View className={'flex-row items-center gap-[20px]'}>
-						<BackButton />
-						<Text className={'font-opensans-bold text-[24px]'}>{'Đơn từ đã duyệt'}</Text>
-					</View>
-					<IconButton iconSource={ICONS.Search} onPressIcon={() => {}} />
-				</View>
-				<Spacer height={30} />
-				<FlatList
-					data={requestsList}
-					keyExtractor={(item, index) => index.toString()}
-					showsVerticalScrollIndicator={false}
-					contentContainerStyle={{ gap: 20, padding: 3 }}
-					// refreshing={true}
-					// onRefresh={() => setCurrentPage(1)}
-					renderItem={({ item, index }) => {
-						return (
-							<ApprovedRequestCard
-								key={index}
-								name={item.name}
-								issueDate={item.issueDate}
-								duration={item.duration}
-								reason={item.reason}
-								issueTimesInMonth={item.issueTimesInMonth}
-								requestTime={item.requestTime}
-								status={item.status}
-								issueTag={item.issueTag}
-							/>
-						)
-					}}
-				/>
-			</View>
+		<SafeAreaScreen
+			title={'Đơn từ đã duyệt'}
+			trailingIcon={ICONS.Search}
+			onPressTrailingIcon={onPressSearch}
+		>
+			<FlatList
+				data={requestsList}
+				keyExtractor={(item, index) => index.toString()}
+				showsVerticalScrollIndicator={false}
+				contentContainerStyle={{ gap: 20, paddingVertical: 5, paddingHorizontal: 20 }}
+				// refreshing={true}
+				// onRefresh={() => setCurrentPage(1)}
+				renderItem={({ item, index }) => {
+					return (
+						<ApprovedRequestCard
+							key={index}
+							name={item.name}
+							issueDate={item.issueDate}
+							duration={item.duration}
+							reason={item.reason}
+							issueTimesInMonth={item.issueTimesInMonth}
+							requestTime={item.requestTime}
+							status={item.status}
+							issueTag={item.issueTag}
+						/>
+					)
+				}}
+			/>
 
 			<PagingTab
 				currentPage={currentPage}
@@ -75,6 +71,6 @@ export default function ApprovedRequest() {
 				onPressFirst={() => setCurrentPage(1)}
 				onPressLast={() => setCurrentPage(pagination.totalPage)}
 			/>
-		</SafeAreaView>
+		</SafeAreaScreen>
 	)
 }
