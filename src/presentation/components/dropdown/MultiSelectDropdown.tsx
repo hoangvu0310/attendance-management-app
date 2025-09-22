@@ -1,5 +1,6 @@
 import {
 	FlatList,
+	Image,
 	LayoutChangeEvent,
 	StyleProp,
 	Text,
@@ -9,34 +10,32 @@ import {
 } from 'react-native'
 import { COLORS, DIMENSIONS, ICONS } from '@src/core/shared/constants'
 import { useEffect, useRef, useState } from 'react'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
 
-type AppDropdownProps = {
-	initialValue?: string
+type MultiSelectDropdownProps = {
+	initialValue?: string[]
 	placeholder: string
-	options: string[]
 	withShadow?: boolean
-	onSelect: (value: string) => void
+	options: string[]
+	onSelect: (value: string | string[]) => void
 	valueContainerStyle?: StyleProp<ViewStyle>
-	itemShowNumber?: number
+	dropdownHeight?: number
 }
 
-export default function AppDropdown({
+export default function MultiSelectDropdown({
 	initialValue,
 	placeholder,
 	withShadow = true,
 	options,
 	onSelect,
 	valueContainerStyle,
-	itemShowNumber = 5,
-}: AppDropdownProps) {
+	dropdownHeight = 200,
+}: MultiSelectDropdownProps) {
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 	const [dropdownLayout, setDropdownLayout] = useState({ width: 0, height: 0, x: 0, y: 0 })
 	const [isDropdownBottom, setIsDropdownBottom] = useState(true)
-	const [selectedValue, setSelectedValue] = useState(initialValue)
-	const [selectedIndex, setSelectedIndex] = useState(0)
-	const insets = useSafeAreaInsets()
+	const [selectedValue, setSelectedValue] = useState<string[]>(initialValue || [])
+	const [selectedIndexes, setSelectedIndexes] = useState<number[]>([-1])
 	const dropdownRef = useRef<View>(null)
 	const rotate = useSharedValue('0deg')
 
@@ -45,18 +44,10 @@ export default function AppDropdown({
 		checkDropdownPosition()
 	}
 
-	const getItemLayout = (data: any, index: number) => ({
-		length: dropdownLayout.height,
-		offset: dropdownLayout.height * index,
-		index,
-	})
-
 	const checkDropdownPosition = () => {
 		if (dropdownRef.current) {
 			dropdownRef.current.measure((x, y, width, height, pageX, pageY) => {
-				setIsDropdownBottom(
-					pageY + height * (itemShowNumber + 1) < DIMENSIONS.windowHeight - insets.bottom,
-				)
+				setIsDropdownBottom(pageY + height < DIMENSIONS.windowHeight)
 			})
 		}
 	}
@@ -79,22 +70,15 @@ export default function AppDropdown({
 		}
 	}, [isDropdownOpen])
 
-	useEffect(() => {
-		const index = options.findIndex((value) => value === selectedValue)
-		setSelectedIndex(index)
-	}, [selectedValue])
-
 	return (
-		<View ref={dropdownRef}>
+		<View ref={dropdownRef} onLayout={onDropdownLayout}>
 			<TouchableOpacity
 				activeOpacity={0.95}
 				onPress={() => {
 					setIsDropdownOpen(!isDropdownOpen)
-					checkDropdownPosition()
 				}}
 			>
 				<View
-					onLayout={onDropdownLayout}
 					className={'flex-row items-center justify-between gap-[20px] rounded-[10px] p-[10px]'}
 					style={[
 						{
@@ -115,9 +99,9 @@ export default function AppDropdown({
 					]}
 				>
 					<Text
-						className={`font-opensans-medium text-[14px] ${selectedValue ? 'text-black' : 'text-gray-600'}`}
+						className={`flex-shrink font-opensans-medium text-[14px] ${selectedValue.length > 0 ? 'text-black' : 'text-gray-600'}`}
 					>
-						{selectedValue ? selectedValue : placeholder}
+						{selectedValue.length > 0 ? selectedValue.join(', ') : placeholder}
 					</Text>
 					<Animated.Image
 						source={isDropdownBottom ? ICONS.Down : ICONS.Up}
@@ -131,14 +115,14 @@ export default function AppDropdown({
 
 			{isDropdownOpen && (
 				<View
-					className={`rounded-[10px] bg-white`}
+					className={'rounded-[10px] bg-white'}
 					style={{
 						position: 'absolute',
 						top: isDropdownBottom ? dropdownLayout.height + 5 : undefined,
 						bottom: isDropdownBottom ? undefined : dropdownLayout.height + 5,
 						zIndex: 100,
 						width: dropdownLayout.width,
-						height: dropdownLayout.height * itemShowNumber,
+						height: dropdownHeight,
 						shadowColor: COLORS.gray['100'],
 						shadowOffset: {
 							width: 0,
@@ -154,60 +138,38 @@ export default function AppDropdown({
 						data={options}
 						keyExtractor={(item) => item}
 						showsVerticalScrollIndicator={false}
-						nestedScrollEnabled={true}
-						getItemLayout={getItemLayout}
-						initialScrollIndex={
-							selectedIndex > Math.floor(itemShowNumber / 2)
-								? selectedIndex - Math.floor(itemShowNumber / 2)
-								: 0
-						}
+						// getItemLayout={getItemLayout}
 						renderItem={({ item, index }) => (
-							<DropdownItem
-								item={item}
-								index={index}
-								isDropdownBottom={isDropdownBottom}
-								selectedIndex={selectedIndex}
-								optionsLength={options.length}
+							<TouchableOpacity
+								className={`flex-row justify-between rounded-[10px] p-[10px]`}
+								activeOpacity={0.9}
 								onPress={() => {
-									setSelectedValue(item)
-									setIsDropdownOpen(false)
 									onSelect(item)
+									if (selectedIndexes.includes(index)) {
+										setSelectedIndexes(
+											selectedIndexes.filter((selectedIndex) => selectedIndex !== index),
+										)
+										setSelectedValue(selectedValue.filter((value) => value !== item))
+									} else {
+										setSelectedValue([...selectedValue, item])
+										setSelectedIndexes([...selectedIndexes, index])
+									}
 								}}
-							/>
+							>
+								<Text className={`font-opensans-medium text-[14px]`}>{item}</Text>
+								{selectedIndexes.includes(index) && (
+									<Image
+										source={ICONS.Tick}
+										tintColor={COLORS.blue['500']}
+										resizeMode={'contain'}
+										className={'h-[16px] w-[16px]'}
+									/>
+								)}
+							</TouchableOpacity>
 						)}
 					/>
 				</View>
 			)}
 		</View>
-	)
-}
-
-const DropdownItem = ({
-	item,
-	index,
-	isDropdownBottom,
-	selectedIndex,
-	optionsLength,
-	onPress,
-}: {
-	item: string
-	index: number
-	isDropdownBottom: boolean
-	selectedIndex: number
-	optionsLength: number
-	onPress: () => void
-}) => {
-	return (
-		<TouchableOpacity
-			className={`p-[10px] ${index === 0 && !isDropdownBottom ? 'rounded-t-[10px]' : ''} ${index === optionsLength && isDropdownBottom ? 'rounded-b-[10px]' : ''} ${index === selectedIndex ? 'bg-blue-600' : ''}`}
-			activeOpacity={0.9}
-			onPress={onPress}
-		>
-			<Text
-				className={`font-opensans-medium text-[14px] ${index === selectedIndex ? 'text-white' : ''}`}
-			>
-				{item}
-			</Text>
-		</TouchableOpacity>
 	)
 }

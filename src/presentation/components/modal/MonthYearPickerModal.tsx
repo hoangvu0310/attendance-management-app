@@ -54,14 +54,14 @@ export default function MonthYearPickerModal({
 				</View>
 
 				<View className={'w-full flex-row items-center justify-center gap-[20px]'}>
-					<OutlinedTextButton label={'Hủy'} onPress={closeModal} buttonStyle={'w-2/5'} />
+					<OutlinedTextButton label={'Hủy'} onPress={closeModal} buttonStyle={{ width: '40%' }} />
 					<FilledTextButton
 						label={'Xác nhận'}
 						onPress={() => {
 							onSelectMonth(selectedMonth, selectedYear)
 							closeModal()
 						}}
-						buttonStyle={'w-2/5'}
+						buttonStyle={{ width: '40%' }}
 					/>
 				</View>
 			</View>

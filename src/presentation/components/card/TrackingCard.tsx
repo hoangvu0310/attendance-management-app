@@ -3,7 +3,7 @@ import { COLORS } from '@src/core/shared/constants'
 import { IssueTag } from '@src/core/shared/constants/enum'
 
 type TrackingCardProps = {
-	title: IssueTag
+	title: string
 	value: number
 	onPress: () => void
 }

@@ -1,12 +1,13 @@
-import { Modal, TouchableWithoutFeedback, View } from 'react-native'
+import { Modal, ModalProps, TouchableWithoutFeedback, View } from 'react-native'
 import React from 'react'
 
-type AppModalProps = React.PropsWithChildren<{
-	isVisible: boolean
-	closeModal: () => void
-}>
+type AppModalProps = ModalProps &
+	React.PropsWithChildren<{
+		isVisible: boolean
+		closeModal: () => void
+	}>
 
-export default function AppModal({ isVisible, closeModal, children }: AppModalProps) {
+export default function AppModal({ isVisible, closeModal, children, ...props }: AppModalProps) {
 	return (
 		<Modal
 			visible={isVisible}
@@ -17,6 +18,7 @@ export default function AppModal({ isVisible, closeModal, children }: AppModalPr
 			navigationBarTranslucent={true} // Render on top of the navigation bar on Android
 			supportedOrientations={['portrait', 'landscape']}
 			onRequestClose={closeModal}
+			{...props}
 		>
 			<TouchableWithoutFeedback onPress={closeModal}>
 				<View className={'flex-1 items-center justify-center'} />

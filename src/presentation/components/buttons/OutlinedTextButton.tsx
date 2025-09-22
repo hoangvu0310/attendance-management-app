@@ -1,10 +1,10 @@
-import { Text, TouchableOpacity } from 'react-native'
+import { StyleProp, Text, TextStyle, TouchableOpacity, ViewStyle } from 'react-native'
 
 type OutlinedTextButtonProps = {
 	label: string
 	onPress: () => void
-	textStyle?: string
-	buttonStyle?: string
+	textStyle?: StyleProp<TextStyle>
+	buttonStyle?: StyleProp<ViewStyle>
 	disabled?: boolean
 }
 
@@ -19,10 +19,13 @@ export default function OutlinedTextButton({
 		<TouchableOpacity
 			activeOpacity={0.9}
 			disabled={disabled}
-			className={`items-center justify-center rounded-[10px] border border-primary p-[10px] ${buttonStyle}`}
+			className={`items-center justify-center rounded-[10px] border border-primary p-[10px]`}
+			style={[buttonStyle]}
 			onPress={onPress}
 		>
-			<Text className={`font-opensans-medium text-[14px] text-primary ${textStyle}`}>{label}</Text>
+			<Text className={`font-opensans-medium text-[14px] text-primary`} style={[textStyle]}>
+				{label}
+			</Text>
 		</TouchableOpacity>
 	)
 }

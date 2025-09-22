@@ -5,9 +5,9 @@ import Spacer from '@src/presentation/components/Spacer'
 import { useState } from 'react'
 import LinearBackground from '@src/presentation/components/LinearBackground'
 import MainTabContentView from '@src/presentation/components/MainTabContentView'
-import TrackingCard from '@src/presentation/components/home/TrackingCard'
-import { IssueTag } from '@src/core/shared/constants/enum'
-import QuickRequestCard from '@src/presentation/components/home/QuickRequestCard'
+import TrackingCard from '@src/presentation/components/card/TrackingCard'
+import { CheckinStatus, IssueTag } from '@src/core/shared/constants/enum'
+import QuickRequestCard from '@src/presentation/components/card/QuickRequestCard'
 import MonthYearPickerModal from '@src/presentation/components/modal/MonthYearPickerModal'
 import { toShortMonthString } from '@src/core/shared/utils/date'
 
@@ -97,7 +97,7 @@ export default function Home() {
 						</View>
 						<View className={'flex-row gap-[15px]'}>
 							<TrackingCard title={IssueTag.DISMISS} value={1} onPress={() => {}} />
-							<TrackingCard title={IssueTag.NOT_CHECKIN} value={1} onPress={() => {}} />
+							<TrackingCard title={CheckinStatus.NOT_CHECKIN} value={1} onPress={() => {}} />
 						</View>
 					</View>
 

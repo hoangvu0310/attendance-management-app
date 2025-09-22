@@ -24,7 +24,11 @@ export default function Task() {
 					icon={ICONS.Timer}
 					onPressItem={() => router.push('/(tasks)/checkin-history')}
 				/>
-				<TaskMenuItem title={'Đơn từ của bạn'} icon={ICONS.Document} onPressItem={() => {}} />
+				<TaskMenuItem
+					title={'Đơn từ của bạn'}
+					icon={ICONS.Document}
+					onPressItem={() => router.push('/(tasks)/your-request')}
+				/>
 				<TaskMenuItem
 					title={'Đơn từ chờ phê duyệt'}
 					icon={ICONS.DocumentCheck}

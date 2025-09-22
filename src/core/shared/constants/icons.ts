@@ -24,4 +24,8 @@ export default {
 	Book: require('@assets/icons/ic-book.png'),
 	Up: require('@assets/icons/ic-up.png'),
 	Down: require('@assets/icons/ic-down.png'),
+	Plus: require('@assets/icons/ic-plus.png'),
+	Bin: require('@assets/icons/ic-bin.png'),
+	Tick: require('@assets/icons/ic-tick.png'),
+	Close: require('@assets/icons/ic-close.png'),
 }

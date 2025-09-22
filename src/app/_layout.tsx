@@ -12,6 +12,7 @@ import { changeAppLanguage } from '@src/i18n/i18n.config'
 import { useEffect } from 'react'
 import '@/global.css'
 import AppThemeProvider from '@src/presentation/context/AppThemeContext'
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet'
 
 SplashScreen.preventAutoHideAsync()
 
@@ -47,11 +48,13 @@ export default function RootLayout() {
 				<QueryClientProvider client={queryClient}>
 					<Provider store={store}>
 						<AppThemeProvider>
-							<Stack>
-								<Stack.Screen name={'index'} options={{ headerShown: false }} />
-								<Stack.Screen name={'(main)'} options={{ headerShown: false }} />
-								<Stack.Screen name={'(tasks)'} options={{ headerShown: false }} />
-							</Stack>
+							<BottomSheetModalProvider>
+								<Stack>
+									<Stack.Screen name={'index'} options={{ headerShown: false }} />
+									<Stack.Screen name={'(main)'} options={{ headerShown: false }} />
+									<Stack.Screen name={'(tasks)'} options={{ headerShown: false }} />
+								</Stack>
+							</BottomSheetModalProvider>
 						</AppThemeProvider>
 					</Provider>
 				</QueryClientProvider>

@@ -1,13 +1,9 @@
-import { SafeAreaView } from 'react-native-safe-area-context'
-import BackButton from '@src/presentation/components/buttons/BackButton'
-import { FlatList, Text, View } from 'react-native'
-import Spacer from '@src/presentation/components/Spacer'
-import IconButton from '@src/presentation/components/buttons/IconButton'
+import { FlatList } from 'react-native'
 import { ICONS } from '@src/core/shared/constants'
-import ApprovedRequestCard from '@src/presentation/components/ApprovedRequestCard'
+import RequestCard from '@src/presentation/components/card/RequestCard'
 import PagingTab from '@src/presentation/components/PagingTab'
 import { useState } from 'react'
-import { IssueTag } from '@src/core/shared/constants/enum'
+import { IssueStatus, IssueTag } from '@src/core/shared/constants/enum'
 import SafeAreaScreen from '@src/presentation/components/SafeAreaScreen'
 
 export default function ApprovedRequest() {
@@ -21,7 +17,7 @@ export default function ApprovedRequest() {
 		reason: 'Lý do cá nhân',
 		issueTimesInMonth: 10,
 		requestTime: '10:00 09-09-2025',
-		status: 'Đã duyệt',
+		status: IssueStatus.APPROVED,
 		issueTag: IssueTag.DISMISS,
 	}))
 
@@ -47,7 +43,7 @@ export default function ApprovedRequest() {
 				// onRefresh={() => setCurrentPage(1)}
 				renderItem={({ item, index }) => {
 					return (
-						<ApprovedRequestCard
+						<RequestCard
 							key={index}
 							name={item.name}
 							issueDate={item.issueDate}
