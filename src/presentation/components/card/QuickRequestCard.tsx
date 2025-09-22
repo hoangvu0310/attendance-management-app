@@ -8,7 +8,7 @@ import {
 	View,
 } from 'react-native'
 import { COLORS } from '@src/core/shared/constants'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 
 type QuickRequestCardProps = {
 	title: IssueTag
