@@ -52,15 +52,12 @@ export default function ModalBottomSheet({
 				className={'absolute bottom-0 max-h-[`80%`] w-full rounded-t-[15px] bg-white'}
 				style={[{ paddingBottom: insets.bottom }, animatedSheetStyle, containerStyle]}
 			>
-				<View className={'flex-row justify-between px-[20px] py-[15px]'}>
-					<View />
-					<Text className={'font-opensans-semibold text-[16px]'}>{title}</Text>
-					<IconButton
-						iconSource={ICONS.Close}
-						onPressIcon={closeBottomSheet}
-						width={16}
-						height={16}
-					/>
+				<View className={'w-full flex-row items-center justify-center px-[20px] py-[15px]'}>
+					{/*<View />*/}
+					<Text className={'text-center font-opensans-semibold text-[16px]'}>{title}</Text>
+					<View className={'absolute right-[20px]'}>
+						<IconButton iconSource={ICONS.Close} onPressIcon={closeBottomSheet} />
+					</View>
 				</View>
 				{children}
 			</Animated.View>

@@ -1,38 +1,65 @@
 import AppModal from '@src/presentation/components/modal/AppModal'
-import { Text, View } from 'react-native'
+import { StyleProp, Text, TextStyle, View, ViewStyle } from 'react-native'
 import FilledTextButton from '@src/presentation/components/buttons/FilledTextButton'
 import { COLORS } from '@src/core/shared/constants'
+import React from 'react'
 
 type ConfirmModalProps = {
-	confirmationText: string
+	confirmationText?: string
+	cancelText?: string
+	confirmText?: string
 	onConfirm: () => void
 	onCancel: () => void
 	isVisible: boolean
-	confirmationTextStyle?: string
+	confirmationTextStyle?: StyleProp<TextStyle>
+	cancelButtonStyle?: StyleProp<ViewStyle>
+	confirmButtonStyle?: StyleProp<ViewStyle>
+	cancelTextStyle?: StyleProp<TextStyle>
+	confirmTextStyle?: StyleProp<TextStyle>
+	children?: React.ReactNode
 }
 
 export default function ConfirmModal({
 	confirmationText,
+	cancelText = 'Hủy',
+	confirmText = 'Xác nhận',
 	onConfirm,
 	onCancel,
 	isVisible,
 	confirmationTextStyle,
+	cancelButtonStyle,
+	confirmButtonStyle,
+	cancelTextStyle,
+	confirmTextStyle,
+	children,
 }: ConfirmModalProps) {
 	return (
 		<AppModal isVisible={isVisible} closeModal={onCancel}>
-			<View className={'w-[`75%`] items-center rounded-xl bg-white p-[20px]'}>
-				<Text
-					className={`px-[15px] text-center font-opensans-medium text-[14px] ${confirmationTextStyle}`}
-				>
-					{confirmationText}
-				</Text>
+			<View className={'w-[`80%`] items-center rounded-xl bg-white p-[20px]'}>
+				{children ? (
+					children
+				) : (
+					<Text
+						className={`px-[15px] text-center font-opensans-medium text-[14px]`}
+						style={confirmationTextStyle}
+					>
+						{confirmationText}
+					</Text>
+				)}
+
 				<View className={'w-full flex-row justify-around gap-[15px] pt-[20px]'}>
 					<FilledTextButton
-						label={'Hủy'}
+						label={cancelText}
 						onPress={onCancel}
-						buttonStyle={{ flex: 1, backgroundColor: COLORS.blue['800'] }}
+						buttonStyle={[{ flex: 1, backgroundColor: COLORS.blue['800'] }, cancelButtonStyle]}
+						textStyle={cancelTextStyle}
 					/>
-					<FilledTextButton label={'Xác nhận'} onPress={onConfirm} buttonStyle={{ flex: 1 }} />
+					<FilledTextButton
+						label={confirmText}
+						onPress={onConfirm}
+						buttonStyle={[{ flex: 1 }, confirmButtonStyle]}
+						textStyle={confirmTextStyle}
+					/>
 				</View>
 			</View>
 		</AppModal>

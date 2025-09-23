@@ -27,3 +27,15 @@ export enum IssueStatus {
 	WAIT_FOR_CANCEL_APPROVAL = 'Chờ hủy',
 	CANCEL_APPROVED = 'Đã duyệt hủy',
 }
+
+export enum RequestHistoryAction {
+	CREATE = 'Khởi tạo',
+	SEND = 'Gửi',
+	UPDATE = 'Đã cập nhật',
+	RETRIEVE = 'Thu hồi',
+	REJECT = 'không được phê duyệt',
+	APPROVE = 'đã được phê duyệt',
+	CANCEL = 'Xin hủy',
+	CANCEL_APPROVE = 'đã được phê duyệt hủy',
+	REJECT_CANCEL = 'không được phê duyệt hủy',
+}

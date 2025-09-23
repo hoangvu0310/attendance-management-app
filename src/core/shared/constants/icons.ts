@@ -28,4 +28,8 @@ export default {
 	Bin: require('@assets/icons/ic-bin.png'),
 	Tick: require('@assets/icons/ic-tick.png'),
 	Close: require('@assets/icons/ic-close.png'),
+	History: require('@assets/icons/ic-history.png'),
+	Send: require('@assets/icons/ic-send.png'),
+	Pen: require('@assets/icons/ic-pen.png'),
+	Reuse: require('@assets/icons/ic-reuse.png'),
 }

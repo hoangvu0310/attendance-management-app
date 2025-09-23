@@ -100,9 +100,15 @@ export default function RequestCard({
 						</Text>
 						<Text className={'font-opensans-medium text-[12px]'}>{issueDate}</Text>
 					</View>
-					<View className={'flex-row items-center'}>
+					<View className={'max-w-[60%] flex-row items-center'}>
 						<Text className={'font-opensans-medium text-[12px] text-gray-400'}>{'Lý do: '}</Text>
-						<Text className={'font-opensans-medium text-[12px]'}>{reason}</Text>
+						<Text
+							numberOfLines={1}
+							ellipsizeMode={'tail'}
+							className={'font-opensans-medium text-[12px]'}
+						>
+							{reason}
+						</Text>
 					</View>
 				</View>
 				<Divider />

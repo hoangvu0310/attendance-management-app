@@ -29,8 +29,8 @@ export default function YourRequest() {
 		reason: 'Lý do cá nhân',
 		issueTimesInMonth: 10,
 		requestTime: '10:00 09-09-2025',
-		status: IssueStatus.DRAFT,
-		issueTag: IssueTag.LATE,
+		status: IssueStatus.CANCEL_APPROVED,
+		issueTag: IssueTag.ONSITE,
 	}))
 
 	const pagination = {
@@ -54,7 +54,7 @@ export default function YourRequest() {
 						placeholder={'Chọn loại đơn'}
 						options={requestTypes}
 						valueContainerStyle={{
-							backgroundColor: COLORS.blue['900'],
+							backgroundColor: COLORS.gray['900'],
 						}}
 						onSelect={() => {}}
 					/>
@@ -88,6 +88,12 @@ export default function YourRequest() {
 												setIsDeleteRequestModalVisible(true)
 												// setSelectedRequest(item)
 											}}
+											onPressItem={() =>
+												router.push({
+													pathname: '/(tasks)/request-detail',
+													params: { request: JSON.stringify(item) },
+												})
+											}
 										/>
 									)
 								}}
