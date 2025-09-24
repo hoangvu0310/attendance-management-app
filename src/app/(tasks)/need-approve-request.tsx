@@ -9,8 +9,10 @@ import ModalBottomSheet from '@src/presentation/components/bottomsheet/ModalBott
 import { useState } from 'react'
 import SentRequestSearchForm from '@src/presentation/components/form/SentRequestSearchForm'
 import MultiSelectDropdown from '@src/presentation/components/dropdown/MultiSelectDropdown'
+import PagingTab from '@src/presentation/components/PagingTab'
 
 export default function NewApproveRequest() {
+	const [currentPage, setCurrentPage] = useState(1)
 	const [isSearchSheetVisible, setIsSearchSheetVisible] = useState(false)
 
 	const requestsList = Array.from({ length: 5 }, (_) => ({
@@ -23,6 +25,10 @@ export default function NewApproveRequest() {
 		status: IssueStatus.APPROVED,
 		issueTag: IssueTag.ONSITE,
 	}))
+	const pagination = {
+		totalPage: 10,
+		totalItem: 100,
+	}
 
 	return (
 		<>
@@ -71,6 +77,16 @@ export default function NewApproveRequest() {
 						<NoDataView />
 					</View>
 				)}
+
+				<PagingTab
+					currentPage={currentPage}
+					totalPage={pagination.totalPage}
+					totalItem={pagination.totalItem}
+					onPressNext={() => setCurrentPage(currentPage + 1)}
+					onPressPrev={() => setCurrentPage(currentPage - 1)}
+					onPressFirst={() => setCurrentPage(1)}
+					onPressLast={() => setCurrentPage(pagination.totalPage)}
+				/>
 			</SafeAreaScreen>
 
 			<ModalBottomSheet
