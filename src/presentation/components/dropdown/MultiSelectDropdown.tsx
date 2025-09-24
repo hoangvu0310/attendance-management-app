@@ -20,6 +20,7 @@ type MultiSelectDropdownProps = {
 	onSelect: (value: string | string[]) => void
 	valueContainerStyle?: StyleProp<ViewStyle>
 	dropdownHeight?: number
+	dropdownGap?: number
 }
 
 export default function MultiSelectDropdown({
@@ -30,6 +31,7 @@ export default function MultiSelectDropdown({
 	onSelect,
 	valueContainerStyle,
 	dropdownHeight = 200,
+	dropdownGap = 5,
 }: MultiSelectDropdownProps) {
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 	const [dropdownLayout, setDropdownLayout] = useState({ width: 0, height: 0, x: 0, y: 0 })
@@ -118,11 +120,14 @@ export default function MultiSelectDropdown({
 					className={'rounded-[10px] bg-white'}
 					style={{
 						position: 'absolute',
-						top: isDropdownBottom ? dropdownLayout.height + 5 : undefined,
-						bottom: isDropdownBottom ? undefined : dropdownLayout.height + 5,
+						top: isDropdownBottom ? dropdownLayout.height + dropdownGap : undefined,
+						bottom: isDropdownBottom ? undefined : dropdownLayout.height + dropdownGap,
 						zIndex: 100,
 						width: dropdownLayout.width,
-						height: dropdownHeight,
+						height:
+							options.length < Math.ceil(dropdownHeight / dropdownLayout.height)
+								? dropdownLayout.height * options.length
+								: dropdownHeight,
 						shadowColor: COLORS.gray['100'],
 						shadowOffset: {
 							width: 0,
@@ -138,7 +143,6 @@ export default function MultiSelectDropdown({
 						data={options}
 						keyExtractor={(item) => item}
 						showsVerticalScrollIndicator={false}
-						// getItemLayout={getItemLayout}
 						renderItem={({ item, index }) => (
 							<TouchableOpacity
 								className={`flex-row justify-between rounded-[10px] p-[10px]`}

@@ -20,6 +20,7 @@ type AppDropdownProps = {
 	onSelect: (value: string) => void
 	valueContainerStyle?: StyleProp<ViewStyle>
 	itemShowNumber?: number
+	dropdownGap?: number
 }
 
 export default function AppDropdown({
@@ -30,6 +31,7 @@ export default function AppDropdown({
 	onSelect,
 	valueContainerStyle,
 	itemShowNumber = options.length <= 5 ? options.length : 5,
+	dropdownGap = 5,
 }: AppDropdownProps) {
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 	const [dropdownLayout, setDropdownLayout] = useState({ width: 0, height: 0, x: 0, y: 0 })
@@ -134,8 +136,8 @@ export default function AppDropdown({
 					className={`rounded-[10px] bg-white`}
 					style={{
 						position: 'absolute',
-						top: isDropdownBottom ? dropdownLayout.height + 5 : undefined,
-						bottom: isDropdownBottom ? undefined : dropdownLayout.height + 5,
+						top: isDropdownBottom ? dropdownLayout.height + dropdownGap : undefined,
+						bottom: isDropdownBottom ? undefined : dropdownLayout.height + dropdownGap,
 						zIndex: 100,
 						width: dropdownLayout.width,
 						height: dropdownLayout.height * itemShowNumber,

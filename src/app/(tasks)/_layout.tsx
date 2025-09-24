@@ -8,6 +8,7 @@ export default function TasksLayout() {
 			<Stack.Screen name={'your-request'} options={{ headerShown: false }} />
 			<Stack.Screen name={'create-request'} options={{ headerShown: false }} />
 			<Stack.Screen name={'request-detail'} options={{ headerShown: false }} />
+			<Stack.Screen name={'need-approve-request'} options={{ headerShown: false }} />
 		</Stack>
 	)
 }
