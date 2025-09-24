@@ -3,7 +3,7 @@ export enum IssueTag {
 	DISMISS = 'Xin nghỉ',
 	LATE = 'Đi muộn',
 	LEAVE_EARLY = 'Về sớm',
-	LATE_AND_LEAVE_EARLY = 'Đến muộn, về sớm',
+	LATE_AND_LEAVE_EARLY = 'Đi muộn, về sớm',
 	ONSITE = 'Onsite',
 	BUSINESS = 'Đi công tác',
 	CONFERENCE = 'Đi học, hội thảo',
@@ -38,4 +38,10 @@ export enum RequestHistoryAction {
 	CANCEL = 'Xin hủy',
 	CANCEL_APPROVE = 'đã được phê duyệt hủy',
 	REJECT_CANCEL = 'không được phê duyệt hủy',
+}
+
+export enum DismissPeriodInDay {
+	MORNING = 'Sáng',
+	AFTERNOON = 'Chiều',
+	WHOLE_DAY = 'Cả ngày',
 }

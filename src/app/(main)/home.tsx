@@ -10,6 +10,7 @@ import { CheckinStatus, IssueTag } from '@src/core/shared/constants/enum'
 import QuickRequestCard from '@src/presentation/components/card/QuickRequestCard'
 import MonthYearPickerModal from '@src/presentation/components/modal/MonthYearPickerModal'
 import { toShortMonthString } from '@src/core/shared/utils/date'
+import { useRouter } from 'expo-router'
 
 export default function Home() {
 	const inset = useSafeAreaInsets()
@@ -46,6 +47,7 @@ export default function Home() {
 
 	const [chosenMonth, setChosenMonth] = useState(new Date())
 	const [isTimePickerVisible, setIsTimePickerVisible] = useState<boolean>(false)
+	const router = useRouter()
 
 	const onPressMonth = () => setIsTimePickerVisible(true)
 
@@ -112,7 +114,12 @@ export default function Home() {
 								<QuickRequestCard
 									title={item.title}
 									iconSource={item.iconSource}
-									onPress={item.onPress}
+									onPress={() =>
+										router.push({
+											pathname: '/(tasks)/create-request',
+											params: { type: item.title },
+										})
+									}
 								/>
 							)}
 						/>

@@ -65,7 +65,7 @@ export default function OwnRequestSearchForm({ onSearchFinished }: OwnRequestSea
 				/>
 
 				<View className={'flex-row gap-[15px]'}>
-					<FormComponent label={'Từ ngày'}>
+					<FormComponent label={'Từ ngày'} containerStyle={{ flex: 1 }}>
 						<DatePickButton
 							onPress={() => {
 								setIsDatePickerVisible(true)
@@ -74,7 +74,7 @@ export default function OwnRequestSearchForm({ onSearchFinished }: OwnRequestSea
 							date={toDateString(formValues.fromDate)}
 						/>
 					</FormComponent>
-					<FormComponent label={'Đến ngày'}>
+					<FormComponent label={'Đến ngày'} containerStyle={{ flex: 1 }}>
 						<DatePickButton
 							onPress={() => {
 								setIsDatePickerVisible(true)

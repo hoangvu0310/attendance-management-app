@@ -1,5 +1,5 @@
 import SafeAreaScreen from '@src/presentation/components/SafeAreaScreen'
-import { FlatList, View } from 'react-native'
+import { FlatList, Image, TouchableOpacity, View } from 'react-native'
 import { COLORS, ICONS } from '@src/core/shared/constants'
 import { useState } from 'react'
 import PagingTab from '@src/presentation/components/PagingTab'
@@ -7,7 +7,6 @@ import { IssueStatus, IssueTag } from '@src/core/shared/constants/enum'
 import RequestCard from '@src/presentation/components/card/RequestCard'
 import NoDataView from '@src/presentation/components/NoDataView'
 import Spacer from '@src/presentation/components/Spacer'
-import IconButton from '@src/presentation/components/buttons/IconButton'
 import { useRouter } from 'expo-router'
 import ConfirmModal from '@src/presentation/components/modal/ConfirmModal'
 import MultiSelectDropdown from '@src/presentation/components/dropdown/MultiSelectDropdown'
@@ -29,7 +28,7 @@ export default function YourRequest() {
 		reason: 'Lý do cá nhân',
 		issueTimesInMonth: 10,
 		requestTime: '10:00 09-09-2025',
-		status: IssueStatus.CANCEL_APPROVED,
+		status: IssueStatus.APPROVED,
 		issueTag: IssueTag.ONSITE,
 	}))
 
@@ -99,15 +98,29 @@ export default function YourRequest() {
 								}}
 							/>
 
-							<View
+							<TouchableOpacity
+								activeOpacity={0.9}
+								onPress={() => router.push('/(tasks)/create-request')}
 								className={'absolute bottom-[15px] right-[25px] rounded-full bg-primary p-[20px]'}
+								style={{
+									shadowColor: COLORS.gray['100'],
+									shadowOffset: {
+										width: 0,
+										height: 2,
+									},
+									shadowOpacity: 0.25,
+									shadowRadius: 3.84,
+
+									elevation: 5,
+								}}
 							>
-								<IconButton
-									iconSource={ICONS.Plus}
-									color={COLORS.white}
-									onPressIcon={() => router.push('/(tasks)/create-request')}
+								<Image
+									source={ICONS.Plus}
+									tintColor={COLORS.white}
+									resizeMode={'contain'}
+									className={'h-[20px] w-[20px]'}
 								/>
-							</View>
+							</TouchableOpacity>
 						</View>
 
 						<PagingTab

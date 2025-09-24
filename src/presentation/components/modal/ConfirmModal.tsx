@@ -10,6 +10,7 @@ type ConfirmModalProps = {
 	confirmText?: string
 	onConfirm: () => void
 	onCancel: () => void
+	closeModal?: () => void
 	isVisible: boolean
 	confirmationTextStyle?: StyleProp<TextStyle>
 	cancelButtonStyle?: StyleProp<ViewStyle>
@@ -25,6 +26,7 @@ export default function ConfirmModal({
 	confirmText = 'Xác nhận',
 	onConfirm,
 	onCancel,
+	closeModal,
 	isVisible,
 	confirmationTextStyle,
 	cancelButtonStyle,
@@ -34,7 +36,7 @@ export default function ConfirmModal({
 	children,
 }: ConfirmModalProps) {
 	return (
-		<AppModal isVisible={isVisible} closeModal={onCancel}>
+		<AppModal isVisible={isVisible} closeModal={closeModal ? closeModal : onCancel}>
 			<View className={'w-[`80%`] items-center rounded-xl bg-white p-[20px]'}>
 				{children ? (
 					children

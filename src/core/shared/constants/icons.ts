@@ -32,4 +32,5 @@ export default {
 	Send: require('@assets/icons/ic-send.png'),
 	Pen: require('@assets/icons/ic-pen.png'),
 	Reuse: require('@assets/icons/ic-reuse.png'),
+	Check: require('@assets/icons/ic-check.png'),
 }

@@ -46,3 +46,8 @@ export const isSameDate = (date1: Date, date2: Date): boolean => {
 		date1.getFullYear() === date2.getFullYear()
 	)
 }
+
+export const daysGap = (date1: Date, date2: Date): number => {
+	const diff = date2.getTime() - date1.getTime()
+	return Math.abs(Math.ceil(diff / (1000 * 3600 * 24)))
+}

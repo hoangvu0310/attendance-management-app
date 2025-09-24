@@ -3,9 +3,10 @@ import {
 	FlatList,
 	Image,
 	ImageSourcePropType,
+	Keyboard,
 	ScrollView,
 	Text,
-	TextInput,
+	TouchableWithoutFeedback,
 	View,
 } from 'react-native'
 import { decapitalize } from '@src/core/shared/utils/string'
@@ -18,6 +19,8 @@ import ConfirmModal from '@src/presentation/components/modal/ConfirmModal'
 import { useState } from 'react'
 import ModalBottomSheet from '@src/presentation/components/bottomsheet/ModalBottomSheet'
 import Divider from '@src/presentation/components/Divider'
+import FormComponent from '@src/presentation/components/form/FormComponent'
+import AppTextfield from '@src/presentation/components/textfield/AppTextfield'
 
 export default function RequestDetail() {
 	const { request } = useLocalSearchParams<{ request: string }>()
@@ -133,17 +136,14 @@ export default function RequestDetail() {
 				cancelButtonStyle={{ paddingVertical: 15 }}
 				confirmButtonStyle={{ paddingVertical: 15 }}
 			>
-				<View className={'w-full justify-start gap-[10px]'}>
-					<Text className={'font-opensans-semibold text-[14px]'}>{'Lý do xin hủy'}</Text>
-					<View className={'justify-start rounded-[10px] bg-gray-900 px-[10px]'}>
-						<TextInput
-							placeholder={'Lý do xin hủy'}
-							placeholderTextColor={COLORS.gray['700']}
-							multiline={true}
-							className={'font-opensans-regular text-[14px]'}
+				<TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+					<FormComponent label={'Lý do xin hủy'} containerStyle={{ width: '100%' }}>
+						<AppTextfield
+							placeholder={'Nhập lý do hủy'}
+							textfieldStyle={{ backgroundColor: COLORS.gray['900'] }}
 						/>
-					</View>
-				</View>
+					</FormComponent>
+				</TouchableWithoutFeedback>
 			</ConfirmModal>
 
 			<ModalBottomSheet

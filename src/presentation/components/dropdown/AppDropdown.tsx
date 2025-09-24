@@ -29,7 +29,7 @@ export default function AppDropdown({
 	options,
 	onSelect,
 	valueContainerStyle,
-	itemShowNumber = 5,
+	itemShowNumber = options.length <= 5 ? options.length : 5,
 }: AppDropdownProps) {
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 	const [dropdownLayout, setDropdownLayout] = useState({ width: 0, height: 0, x: 0, y: 0 })
