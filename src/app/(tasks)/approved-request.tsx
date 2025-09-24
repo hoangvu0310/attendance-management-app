@@ -5,9 +5,12 @@ import PagingTab from '@src/presentation/components/PagingTab'
 import { useState } from 'react'
 import { IssueStatus, IssueTag } from '@src/core/shared/constants/enum'
 import SafeAreaScreen from '@src/presentation/components/SafeAreaScreen'
+import SentRequestSearchForm from '@src/presentation/components/form/SentRequestSearchForm'
+import ModalBottomSheet from '@src/presentation/components/bottomsheet/ModalBottomSheet'
 
 export default function ApprovedRequest() {
 	const [currentPage, setCurrentPage] = useState(1)
+	const [isSearchSheetVisible, setIsSearchSheetVisible] = useState(false)
 
 	// Mock data
 	const requestsList = Array.from({ length: 20 }, (_, index) => ({
@@ -26,47 +29,55 @@ export default function ApprovedRequest() {
 		totalItem: 100,
 	}
 
-	const onPressSearch = () => {}
-
 	return (
-		<SafeAreaScreen
-			title={'Đơn từ đã duyệt'}
-			trailingIcon={ICONS.Search}
-			onPressTrailingIcon={onPressSearch}
-		>
-			<FlatList
-				data={requestsList}
-				keyExtractor={(item, index) => index.toString()}
-				showsVerticalScrollIndicator={false}
-				contentContainerStyle={{ gap: 20, paddingVertical: 5, paddingHorizontal: 20 }}
-				// refreshing={true}
-				// onRefresh={() => setCurrentPage(1)}
-				renderItem={({ item, index }) => {
-					return (
-						<RequestCard
-							key={index}
-							name={item.name}
-							issueDate={item.issueDate}
-							duration={item.duration}
-							reason={item.reason}
-							issueTimesInMonth={item.issueTimesInMonth}
-							requestTime={item.requestTime}
-							status={item.status}
-							issueTag={item.issueTag}
-						/>
-					)
-				}}
-			/>
+		<>
+			<SafeAreaScreen
+				title={'Đơn từ đã duyệt'}
+				trailingIcon={ICONS.Search}
+				onPressTrailingIcon={() => setIsSearchSheetVisible(true)}
+			>
+				<FlatList
+					data={requestsList}
+					keyExtractor={(item, index) => index.toString()}
+					showsVerticalScrollIndicator={false}
+					contentContainerStyle={{ gap: 20, paddingVertical: 5, paddingHorizontal: 20 }}
+					// refreshing={true}
+					// onRefresh={() => setCurrentPage(1)}
+					renderItem={({ item, index }) => {
+						return (
+							<RequestCard
+								key={index}
+								name={item.name}
+								issueDate={item.issueDate}
+								duration={item.duration}
+								reason={item.reason}
+								issueTimesInMonth={item.issueTimesInMonth}
+								requestTime={item.requestTime}
+								status={item.status}
+								issueTag={item.issueTag}
+							/>
+						)
+					}}
+				/>
 
-			<PagingTab
-				currentPage={currentPage}
-				totalPage={pagination.totalPage}
-				totalItem={pagination.totalItem}
-				onPressNext={() => setCurrentPage(currentPage + 1)}
-				onPressPrev={() => setCurrentPage(currentPage - 1)}
-				onPressFirst={() => setCurrentPage(1)}
-				onPressLast={() => setCurrentPage(pagination.totalPage)}
-			/>
-		</SafeAreaScreen>
+				<PagingTab
+					currentPage={currentPage}
+					totalPage={pagination.totalPage}
+					totalItem={pagination.totalItem}
+					onPressNext={() => setCurrentPage(currentPage + 1)}
+					onPressPrev={() => setCurrentPage(currentPage - 1)}
+					onPressFirst={() => setCurrentPage(1)}
+					onPressLast={() => setCurrentPage(pagination.totalPage)}
+				/>
+			</SafeAreaScreen>
+
+			<ModalBottomSheet
+				isVisible={isSearchSheetVisible}
+				closeBottomSheet={() => setIsSearchSheetVisible(false)}
+				title={'Tìm kiếm'}
+			>
+				<SentRequestSearchForm type={'approved'} />
+			</ModalBottomSheet>
+		</>
 	)
 }

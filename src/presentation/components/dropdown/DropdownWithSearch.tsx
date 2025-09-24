@@ -7,14 +7,16 @@ import {
 	View,
 	ViewStyle,
 } from 'react-native'
-import { COLORS, DIMENSIONS, ICONS } from '@src/core/shared/constants'
 import { useEffect, useRef, useState } from 'react'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Animated, { useAnimatedStyle, useSharedValue, withTiming } from 'react-native-reanimated'
+import { COLORS, DIMENSIONS, ICONS } from '@src/core/shared/constants'
 import SingleSelectDropdownItem from '@src/presentation/components/dropdown/SingleSelectDropdownItem'
+import Divider from '@src/presentation/components/Divider'
+import AppTextfield from '@src/presentation/components/textfield/AppTextfield'
+import IconButton from '@src/presentation/components/buttons/IconButton'
 
-type AppDropdownProps = {
-	initialValue?: string
+type DropdownWithSearchProps = {
 	placeholder: string
 	options: string[]
 	withShadow?: boolean
@@ -24,8 +26,7 @@ type AppDropdownProps = {
 	dropdownGap?: number
 }
 
-export default function AppDropdown({
-	initialValue,
+export default function DropdownWithSearch({
 	placeholder,
 	withShadow = true,
 	options,
@@ -33,12 +34,14 @@ export default function AppDropdown({
 	valueContainerStyle,
 	itemShowNumber = options.length <= 5 ? options.length : 5,
 	dropdownGap = 5,
-}: AppDropdownProps) {
+}: DropdownWithSearchProps) {
 	const [isDropdownOpen, setIsDropdownOpen] = useState(false)
 	const [dropdownLayout, setDropdownLayout] = useState({ width: 0, height: 0, x: 0, y: 0 })
 	const [isDropdownBottom, setIsDropdownBottom] = useState(true)
-	const [selectedValue, setSelectedValue] = useState(initialValue)
+	const [selectedValue, setSelectedValue] = useState<string | null>(null)
 	const [selectedIndex, setSelectedIndex] = useState(0)
+	const [searchValue, setSearchValue] = useState<string | undefined>(undefined)
+	const [results, setResults] = useState(options)
 	const insets = useSafeAreaInsets()
 	const dropdownRef = useRef<View>(null)
 	const rotate = useSharedValue('0deg')
@@ -141,7 +144,10 @@ export default function AppDropdown({
 						bottom: isDropdownBottom ? undefined : dropdownLayout.height + dropdownGap,
 						zIndex: 100,
 						width: dropdownLayout.width,
-						height: dropdownLayout.height * itemShowNumber,
+						height:
+							results.length > itemShowNumber
+								? dropdownLayout.height * (itemShowNumber + 1)
+								: dropdownLayout.height * (results.length + 1),
 						shadowColor: COLORS.gray['100'],
 						shadowOffset: {
 							width: 0,
@@ -153,32 +159,68 @@ export default function AppDropdown({
 						elevation: 2,
 					}}
 				>
-					<FlatList
-						data={options}
-						keyExtractor={(item) => item}
-						showsVerticalScrollIndicator={false}
-						nestedScrollEnabled={true}
-						getItemLayout={getItemLayout}
-						initialScrollIndex={
-							selectedIndex > Math.floor(itemShowNumber / 2)
-								? selectedIndex - Math.floor(itemShowNumber / 2)
-								: 0
-						}
-						renderItem={({ item, index }) => (
-							<SingleSelectDropdownItem
-								item={item}
-								index={index}
-								isDropdownBottom={isDropdownBottom}
-								selectedIndex={selectedIndex}
-								optionsLength={options.length}
-								onPress={() => {
-									setSelectedValue(item)
-									setIsDropdownOpen(false)
-									onSelect(item)
-								}}
-							/>
-						)}
-					/>
+					<View className={'px-[10px]'}>
+						<AppTextfield
+							textfieldStyle={{ backgroundColor: COLORS.white }}
+							value={searchValue}
+							onChangeText={(text) => setSearchValue(text)}
+							placeholder={'Nhập từ khóa tìm kiếm'}
+							multiline={false}
+							trailingComponent={
+								<View className={'flex-row items-center gap-[15px]'}>
+									{searchValue && (
+										<IconButton
+											iconSource={ICONS.Close}
+											height={18}
+											width={18}
+											onPressIcon={() => setSearchValue('')}
+										/>
+									)}
+									<IconButton
+										iconSource={ICONS.Search}
+										height={18}
+										width={18}
+										onPressIcon={() => {
+											const searchResult = options.filter((option) =>
+												option.includes(searchValue || ''),
+											)
+											setResults(searchResult)
+										}}
+									/>
+								</View>
+							}
+						/>
+						<Divider marginVertical={0} />
+						<FlatList
+							data={results}
+							keyExtractor={(item) => item}
+							showsVerticalScrollIndicator={false}
+							nestedScrollEnabled={true}
+							getItemLayout={getItemLayout}
+							initialScrollIndex={
+								selectedIndex > Math.floor(itemShowNumber / 2)
+									? selectedIndex - Math.floor(itemShowNumber / 2)
+									: 0
+							}
+							renderItem={({ item, index }) => (
+								<>
+									<SingleSelectDropdownItem
+										item={item}
+										index={index}
+										isDropdownBottom={isDropdownBottom}
+										selectedIndex={selectedIndex}
+										optionsLength={options.length}
+										onPress={() => {
+											setSelectedValue(item)
+											setIsDropdownOpen(false)
+											onSelect(item)
+										}}
+									/>
+									{index < options.length && <Divider marginVertical={0} />}
+								</>
+							)}
+						/>
+					</View>
 				</View>
 			)}
 		</View>

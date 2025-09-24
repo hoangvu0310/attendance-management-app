@@ -12,6 +12,7 @@ import FilledTextButton from '@src/presentation/components/buttons/FilledTextBut
 import { z } from 'zod'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
+import DropdownWithSearch from '@src/presentation/components/dropdown/DropdownWithSearch'
 
 type SentRequestSearchFormProps = {
 	type: 'need-approve' | 'approved'
@@ -29,6 +30,7 @@ export default function SentRequestSearchForm({ type }: SentRequestSearchFormPro
 			: Object.entries(IssueStatus)
 					.filter(([key]) => key.includes('APPROVED') || key.includes('DENIED'))
 					.map(([, value]) => value)
+	const departmentOptions = ['Phòng phần mềm 2', 'Phòng BIGDATA', 'Đơn vị test lương']
 
 	const sentRequestSearchSchema = z.object({
 		requestType: z.enum(IssueTag),
@@ -77,9 +79,9 @@ export default function SentRequestSearchForm({ type }: SentRequestSearchFormPro
 						)}
 
 						<FormComponent label={'Đơn vị'}>
-							<AppDropdown
-								options={[]}
-								placeholder={'Loại đơn từ'}
+							<DropdownWithSearch
+								options={departmentOptions}
+								placeholder={'Chọn đơn vị'}
 								withShadow={false}
 								onSelect={() => {}}
 								valueContainerStyle={{ backgroundColor: COLORS.blue['900'] }}
@@ -89,7 +91,7 @@ export default function SentRequestSearchForm({ type }: SentRequestSearchFormPro
 						<FormComponent label={'Trạng thái'}>
 							<AppDropdown
 								options={statusOptions}
-								placeholder={'Loại đơn từ'}
+								placeholder={'Trạng thái'}
 								withShadow={false}
 								onSelect={() => {}}
 								valueContainerStyle={{ backgroundColor: COLORS.blue['900'] }}
