@@ -1,6 +1,6 @@
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs'
-import { View, Image, TouchableOpacity, Text } from 'react-native'
-import { ICONS, COLORS } from '@src/core/shared/constants'
+import { View } from 'react-native'
+import { COLORS, ICONS } from '@src/core/shared/constants'
 import TabBarButton from '@src/presentation/components/tabbar/TabBarButton'
 
 export default function AppTabBar({ state, navigation, descriptors, insets }: BottomTabBarProps) {
@@ -64,6 +64,7 @@ export default function AppTabBar({ state, navigation, descriptors, insets }: Bo
 							isActive={isActive}
 							label={label}
 							onPressTab={onPressTab}
+							isNotification={route.name === 'notification'}
 						/>
 					</View>
 				)
